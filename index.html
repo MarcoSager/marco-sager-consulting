@@ -576,6 +576,128 @@
     .reveal-d4 { transition-delay: 0.44s; }
     .reveal-d5 { transition-delay: 0.56s; }
 
+    /* ─── CREDIBILITY STRIP ─── */
+    #credibility {
+      background: #21262f;
+      border-top: 1px solid rgba(74,82,64,0.2);
+      border-bottom: 1px solid rgba(74,82,64,0.2);
+      padding: 64px 52px;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 0 64px;
+      align-items: center;
+      max-width: 100%;
+    }
+    .cred-book-wrap {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .cred-book-img {
+      flex-shrink: 0;
+      width: 100px;
+      position: relative;
+    }
+    .cred-book-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      box-shadow:
+        -6px 6px 0 rgba(0,0,0,0.35),
+        0 16px 40px rgba(0,0,0,0.5),
+        0 4px 12px rgba(200,128,31,0.1);
+    }
+    .cred-book-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 12px;
+      border: 1px solid rgba(200,128,31,0.35);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #c8801f;
+      font-weight: 400; margin-bottom: 12px;
+    }
+    .cred-book-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 20px; color: #f4ede0;
+      line-height: 1.2; letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .cred-book-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 300;
+      color: #8a6a4a; line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .cred-book-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #c8801f;
+      text-decoration: none; font-weight: 400;
+      transition: gap 0.2s;
+    }
+    .cred-book-link:hover { gap: 11px; }
+    .cred-v-divider {
+      width: 1px; height: 120px;
+      background: linear-gradient(to bottom, transparent, rgba(74,82,64,0.5), transparent);
+      justify-self: center;
+    }
+    .cred-social-wrap {}
+    .cred-brand-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9.5px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: #c8801f;
+      margin-bottom: 6px; font-weight: 400;
+    }
+    .cred-brand-name {
+      font-family: 'EB Garamond', serif;
+      font-size: 28px; color: #f4ede0;
+      letter-spacing: -0.01em; margin-bottom: 28px;
+      line-height: 1;
+    }
+    .cred-platforms {
+      display: flex; gap: 32px; align-items: center;
+    }
+    .cred-platform {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .cred-platform-top {
+      display: flex; align-items: center; gap: 9px;
+    }
+    .cred-platform-icon {
+      color: rgba(200,128,31,0.55);
+      display: flex; align-items: center;
+    }
+    .cred-platform-count {
+      font-family: 'EB Garamond', serif;
+      font-size: 34px; color: #f4ede0;
+      line-height: 1; letter-spacing: -0.02em;
+    }
+    .cred-platform-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #8a6a4a;
+      font-weight: 400;
+    }
+    .cred-platform-link {
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .cred-platform-link:hover { opacity: 0.75; }
+    @media (max-width: 900px) {
+      #credibility {
+        grid-template-columns: 1fr;
+        gap: 40px 0;
+        padding: 48px 24px;
+      }
+      .cred-v-divider {
+        width: 80px; height: 1px;
+        background: linear-gradient(to right, transparent, rgba(74,82,64,0.5), transparent);
+      }
+    }
+
     /* ─── SHARED SECTION ELEMENTS ─── */
     .section-eyebrow {
       display: flex;
@@ -1006,6 +1128,67 @@
     </div>
 
   </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CREDIBILITY STRIP
+════════════════════════════════════════ -->
+<section id="credibility" class="reveal">
+
+  <!-- Book -->
+  <div class="cred-book-wrap">
+    <div class="cred-book-img">
+      <img src="images/book-cover.jpg" alt="The Psychology of Marketing"
+           onerror="this.parentElement.style.display='none'">
+    </div>
+    <div>
+      <div class="cred-book-badge">Publizierter Autor</div>
+      <div class="cred-book-title">The Psychology<br>of Marketing</div>
+      <div class="cred-book-sub">Why People Buy (And How To Use It)</div>
+      <a href="#" class="cred-book-link">Buch ansehen →</a>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="cred-v-divider"></div>
+
+  <!-- Thai by Heart -->
+  <div class="cred-social-wrap">
+    <div class="cred-brand-label">Thai-Marke · Reichweite</div>
+    <div class="cred-brand-name">Thai by Heart</div>
+    <div class="cred-platforms">
+
+      <a href="https://web.facebook.com/thaibyheart/" target="_blank" rel="noopener" class="cred-platform-link">
+        <div class="cred-platform">
+          <div class="cred-platform-top">
+            <div class="cred-platform-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </div>
+            <div class="cred-platform-count">154K</div>
+          </div>
+          <div class="cred-platform-name">Facebook</div>
+        </div>
+      </a>
+
+      <a href="https://www.tiktok.com/@thaibyheart" target="_blank" rel="noopener" class="cred-platform-link">
+        <div class="cred-platform">
+          <div class="cred-platform-top">
+            <div class="cred-platform-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+              </svg>
+            </div>
+            <div class="cred-platform-count">53K</div>
+          </div>
+          <div class="cred-platform-name">TikTok</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
 </section>
 
 <div class="section-rule"></div>
