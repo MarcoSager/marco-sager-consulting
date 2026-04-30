@@ -219,10 +219,8 @@
     /* ─── MISTAKES ─── */
     #mistakes { background:#1a1d24; padding:120px 0; }
     .mistakes-inner { max-width:1160px; margin:0 auto; padding:0 52px; }
-    .mistake-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; background:rgba(74,82,64,0.18); }
-    .mistake-card { grid-column:span 2; background:#1e2229; padding:44px 36px 40px; border-top:2px solid transparent; position:relative; transition:border-color 0.3s, background 0.3s, box-shadow 0.3s; }
-    .mistake-card:nth-child(4) { grid-column:2/span 2; }
-    .mistake-card:nth-child(5) { grid-column:4/span 2; }
+    .mistake-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:rgba(74,82,64,0.18); }
+    .mistake-card { background:#1e2229; padding:44px 36px 40px; border-top:2px solid transparent; position:relative; transition:border-color 0.3s, background 0.3s, box-shadow 0.3s; }
     .mistake-card:hover { border-top-color:#c8801f; background:#23292f; box-shadow:0 12px 48px rgba(0,0,0,0.45); }
     .mistake-num { font-family:'EB Garamond',serif; font-size:12px; letter-spacing:0.22em; color:rgba(200,128,31,0.48); margin-bottom:14px; font-weight:400; }
     .mistake-title { font-family:'EB Garamond',serif; font-size:21px; color:#f4ede0; line-height:1.25; letter-spacing:-0.01em; margin-bottom:18px; }
@@ -281,7 +279,6 @@
       #origin, #mistakes, #services, #cta { padding:72px 0; }
       .origin-quote { gap:0 28px; }
       .mistake-grid { grid-template-columns:1fr; }
-      .mistake-card, .mistake-card:nth-child(4), .mistake-card:nth-child(5) { grid-column:span 1; }
       .service-item { grid-template-columns:48px 1px 1fr; }
       .service-arr { display:none; }
       footer { flex-direction:column; gap:20px; text-align:center; padding:36px 24px; }
@@ -529,6 +526,15 @@
         <p class="insight-text" data-i18n="m5-insight">Die richtige Visa- und Arbeitserlaubnisstruktur kostet einen Bruchteil dessen, was ein Problem im Nachhinein kostet. Ich helfe Mandanten, dies vor dem Start richtig einzurichten.</p>
       </div>
 
+      <div class="mistake-card reveal reveal-d1">
+        <div class="mistake-num" data-i18n="m6-num">FEHLER 06</div>
+        <h3 class="mistake-title" data-i18n="m6-title">Der Mitarbeiter, der zum Konkurrenten wurde</h3>
+        <p class="mistake-body" data-i18n="m6-body">Ein Ausländer baute eine erfolgreiche E-Commerce-Marke in Thailand auf. Er schulte einen lokalen Mitarbeiter in allem: Lieferanten, Preisgestaltung, Logistik, Kundenstamm. Ein Jahr später kündigte der Mitarbeiter. Drei Monate danach erschien ein neues Unternehmen — gleiche Produkte, gleiche Lieferanten, gleiche Kunden. Zu günstigeren Preisen.</p>
+        <div class="mistake-divider"></div>
+        <span class="insight-label" data-i18n="insight-label">Marcos Einschätzung</span>
+        <p class="insight-text" data-i18n="m6-insight">Bauen Sie nicht nur ein Unternehmen auf. Schützen Sie es. Systeme, Verträge und Zugangskontrollen entscheiden, ob Ihr Wissen bei Ihnen bleibt.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -683,6 +689,10 @@
       'm3-insight': 'In Thailand ist die erste Bestellung fast immer perfekt — sie ist ein Beziehungsaufbau. Ich nenne es die Honeymoon-Bestellung. Dieses Muster zu kennen, verändert die Art, wie Sie jeden Lieferantenvertrag strukturieren.',
       'm4-insight': 'Geschäfte in Thailand sind nicht nur Strategie. Es ist Kultur, Kommunikation und das Wissen darum, was nicht gesagt wird. Ich überbrücke beide Seiten, damit nichts verloren geht.',
       'm5-insight': 'Die richtige Visa- und Arbeitserlaubnisstruktur kostet einen Bruchteil dessen, was ein Problem im Nachhinein kostet. Ich helfe Mandanten, dies vor dem Start richtig einzurichten.',
+      'm6-num': 'FEHLER 06',
+      'm6-title': 'Der Mitarbeiter, der zum Konkurrenten wurde',
+      'm6-body': 'Ein Ausländer baute eine erfolgreiche E-Commerce-Marke in Thailand auf. Er schulte einen lokalen Mitarbeiter in allem: Lieferanten, Preisgestaltung, Logistik, Kundenstamm. Ein Jahr später kündigte der Mitarbeiter. Drei Monate danach erschien ein neues Unternehmen — gleiche Produkte, gleiche Lieferanten, gleiche Kunden. Zu günstigeren Preisen.',
+      'm6-insight': 'Bauen Sie nicht nur ein Unternehmen auf. Schützen Sie es. Systeme, Verträge und Zugangskontrollen entscheiden, ob Ihr Wissen bei Ihnen bleibt.',
       'services-eyebrow': 'Was ich tue',
       'services-heading': 'Leistungen',
       's1-title': 'Markteintritt & Unternehmensstruktur',
@@ -731,6 +741,10 @@
       'm3-insight': 'In Thailand the first order is almost always perfect — it\'s a relationship builder. I call it the Honeymoon Order. Knowing this pattern changes how you structure every supplier agreement.',
       'm4-insight': 'Business in Thailand is not just strategy. It\'s culture, communication, and knowing what isn\'t being said. I bridge both sides so nothing gets lost.',
       'm5-insight': 'The right visa and work permit structure costs a fraction of what it costs to fix after a problem. I help clients get this right before they start.',
+      'm6-num': 'MISTAKE 06',
+      'm6-title': 'The employee who became the competitor',
+      'm6-body': 'A foreigner built a successful e-commerce brand in Thailand. He trained a local employee in everything: suppliers, pricing, logistics, customer base. One year later, the employee quit. Three months after that, a new business appeared — same products, same suppliers, same customers. At lower prices.',
+      'm6-insight': 'Don\'t just build a business. Protect it. Systems, contracts, and access control determine whether your knowledge stays with you.',
       'services-eyebrow': 'What I do',
       'services-heading': 'Services',
       's1-title': 'Market Entry & Company Structure',
