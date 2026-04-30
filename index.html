@@ -14,16 +14,13 @@
       theme: {
         extend: {
           colors: {
-            iron:    '#1a1d24',
-            'iron-2':'#21262f',
-            saffron: '#c8801f',
-            bone:    '#f4ede0',
-            forest:  '#4a5240',
-            teak:    '#8a6a4a',
+            iron: '#1a1d24', 'iron-2': '#21262f',
+            saffron: '#c8801f', bone: '#f4ede0',
+            forest: '#4a5240', teak: '#8a6a4a',
           },
           fontFamily: {
             garamond: ['"EB Garamond"', 'Georgia', 'serif'],
-            body:     ['"DM Sans"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
           }
         }
       }
@@ -32,974 +29,277 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
-      background-color: #1a1d24;
-      color: #f4ede0;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      background-color: #1a1d24; color: #f4ede0;
+      font-family: 'DM Sans', sans-serif; font-weight: 300;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
     }
-
-    /* Grain overlay */
     body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
+      content: ''; position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.04;
-      pointer-events: none;
-      z-index: 9999;
+      opacity: 0.04; pointer-events: none; z-index: 9999;
     }
 
     /* ─── NAV ─── */
     #main-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 24px 52px;
-      transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease, padding 0.3s ease;
+      transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s, padding 0.3s;
       border-bottom: 1px solid transparent;
     }
-
     #main-nav.scrolled {
-      background: rgba(26, 29, 36, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-color: rgba(200, 128, 31, 0.18);
-      padding-top: 16px;
-      padding-bottom: 16px;
+      background: rgba(26,29,36,0.88);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-color: rgba(200,128,31,0.18);
+      padding-top: 16px; padding-bottom: 16px;
     }
+    .logo-mark { font-family:'EB Garamond',serif; font-style:italic; font-size:30px; color:#f4ede0; line-height:1; letter-spacing:-0.02em; }
+    .logo-text-name { font-family:'DM Sans',sans-serif; font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:#f4ede0; font-weight:400; line-height:1; }
+    .logo-text-sub { font-family:'DM Sans',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:#8a6a4a; font-weight:300; line-height:1; margin-top:3px; }
+    .logo-divider { width:1px; height:28px; background:rgba(200,128,31,0.35); margin:0 14px; }
+    .nav-right { display:flex; align-items:center; gap:20px; }
 
-    .logo-mark {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: 30px;
-      color: #f4ede0;
-      line-height: 1;
-      letter-spacing: -0.02em;
+    /* Language toggle */
+    .lang-toggle {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(74,82,64,0.45);
+      border-radius: 2px;
+      overflow: hidden;
     }
-
-    .logo-text-name {
+    .lang-btn {
+      padding: 6px 12px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 10.5px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #f4ede0;
-      font-weight: 400;
-      line-height: 1;
-    }
-
-    .logo-text-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #8a6a4a;
-      font-weight: 300;
-      line-height: 1;
-      margin-top: 3px;
-    }
-
-    .logo-divider {
-      width: 1px;
-      height: 28px;
-      background: rgba(200, 128, 31, 0.35);
-      margin: 0 14px;
-    }
-
-    /* Nav CTA */
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 22px;
-      background: transparent;
-      border: 1px solid rgba(200, 128, 31, 0.55);
-      color: #c8801f;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
+      font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(138,106,74,0.6);
+      font-weight: 400; background: transparent; border: none;
       cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn.active { background: rgba(200,128,31,0.15); color: #c8801f; }
+    .lang-btn:hover:not(.active) { color: rgba(244,237,224,0.6); }
+    .lang-sep { width:1px; height:16px; background:rgba(74,82,64,0.45); flex-shrink:0; }
+
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; background: transparent;
+      border: 1px solid rgba(200,128,31,0.55); color: #c8801f;
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
       transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
     }
-
-    .nav-cta:hover {
-      background: #c8801f;
-      color: #f4ede0;
-      border-color: #c8801f;
-    }
-
+    .nav-cta:hover { background: #c8801f; color: #f4ede0; border-color: #c8801f; }
     .nav-cta:active { transform: translateY(1px); }
     @media (max-width: 640px) { .nav-cta { display: none; } }
 
     /* ─── HERO ─── */
-    .hero-section {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 44% 56%;
-      position: relative;
-    }
-
-    /* Photo column */
-    .hero-photo-col {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-photo-col img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      filter: grayscale(18%) contrast(1.06) brightness(0.88);
-      display: block;
-    }
-
-    /* Gradient overlays on photo */
-    .photo-grad-bottom {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(26, 29, 36, 0) 45%,
-        rgba(26, 29, 36, 0.45) 75%,
-        rgba(26, 29, 36, 0.9) 100%
-      );
-    }
-
-    .photo-grad-right {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        transparent 65%,
-        rgba(26, 29, 36, 0.6) 85%,
-        rgba(26, 29, 36, 0.95) 100%
-      );
-    }
-
-    .photo-color-wash {
-      position: absolute;
-      inset: 0;
-      background: rgba(138, 106, 74, 0.12);
-      mix-blend-mode: multiply;
-    }
-
-    /* Hero content column */
-    .hero-content-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 140px 68px 80px 56px;
-      position: relative;
-    }
-
-    /* Eyebrow */
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 36px;
-    }
-
-    .eyebrow-line {
-      width: 36px;
-      height: 1px;
-      background: #c8801f;
-      flex-shrink: 0;
-    }
-
-    .eyebrow-text {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10.5px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #c8801f;
-      font-weight: 400;
-    }
-
-    /* Headline */
-    .hero-headline {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(40px, 4.5vw, 68px);
-      color: #f4ede0;
-      line-height: 1.06;
-      letter-spacing: -0.02em;
-      margin-bottom: 28px;
-    }
-
-    .hero-headline em {
-      font-style: italic;
-      color: #c8801f;
-    }
-
-    /* Subline */
-    .hero-subline {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      color: #8a6a4a;
-      line-height: 1.75;
-      max-width: 460px;
-      margin-bottom: 52px;
-    }
-
-    /* Stats */
-    .stats-row {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      margin-bottom: 56px;
-    }
-
-    .stat-block {
-      padding-right: 32px;
-    }
-
-    .stat-block + .stat-block {
-      padding-left: 32px;
-      border-left: 1px solid rgba(200, 128, 31, 0.3);
-    }
-
-    .stat-num {
-      font-family: 'EB Garamond', serif;
-      font-size: 42px;
-      color: #f4ede0;
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-
-    .stat-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 9.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #8a6a4a;
-      margin-top: 5px;
-      font-weight: 400;
-    }
-
-    /* Primary CTA */
+    .hero-section { min-height: 100vh; display: grid; grid-template-columns: 44% 56%; position: relative; }
+    .hero-photo-col { position: relative; overflow: hidden; }
+    .hero-photo-col img { width:100%; height:100%; object-fit:cover; object-position:top center; filter:grayscale(18%) contrast(1.06) brightness(0.88); display:block; }
+    .photo-grad-bottom { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(26,29,36,0) 45%, rgba(26,29,36,0.45) 75%, rgba(26,29,36,0.9) 100%); }
+    .photo-grad-right { position:absolute; inset:0; background:linear-gradient(to right, transparent 65%, rgba(26,29,36,0.6) 85%, rgba(26,29,36,0.95) 100%); }
+    .photo-color-wash { position:absolute; inset:0; background:rgba(138,106,74,0.12); mix-blend-mode:multiply; }
+    .hero-content-col { display:flex; flex-direction:column; justify-content:center; padding:140px 68px 80px 56px; position:relative; }
+    .eyebrow { display:flex; align-items:center; gap:14px; margin-bottom:36px; }
+    .eyebrow-line { width:36px; height:1px; background:#c8801f; flex-shrink:0; }
+    .eyebrow-text { font-family:'DM Sans',sans-serif; font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:#c8801f; font-weight:400; }
+    .hero-headline { font-family:'EB Garamond',serif; font-size:clamp(40px,4.5vw,68px); color:#f4ede0; line-height:1.06; letter-spacing:-0.02em; margin-bottom:28px; }
+    .hero-headline em { font-style:italic; color:#c8801f; }
+    .hero-subline { font-family:'DM Sans',sans-serif; font-size:16px; font-weight:300; color:#8a6a4a; line-height:1.75; max-width:460px; margin-bottom:52px; }
+    .stats-row { display:flex; align-items:center; gap:0; margin-bottom:56px; }
+    .stat-block { padding-right:32px; }
+    .stat-block + .stat-block { padding-left:32px; border-left:1px solid rgba(200,128,31,0.3); }
+    .stat-num { font-family:'EB Garamond',serif; font-size:42px; color:#f4ede0; line-height:1; letter-spacing:-0.02em; }
+    .stat-label { font-family:'DM Sans',sans-serif; font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; color:#8a6a4a; margin-top:5px; font-weight:400; }
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px 32px;
-      background: #c8801f;
-      color: #f4ede0;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.25s ease, transform 0.15s ease,
-                  box-shadow 0.25s ease;
-      box-shadow: 0 4px 20px rgba(200, 128, 31, 0.25),
-                  0 1px 4px rgba(0,0,0,0.4);
+      display:inline-flex; align-items:center; gap:10px; padding:15px 32px;
+      background:#c8801f; color:#f4ede0; font-family:'DM Sans',sans-serif;
+      font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase;
+      text-decoration:none; cursor:pointer; border:none; position:relative; overflow:hidden;
+      transition:background 0.25s, transform 0.15s, box-shadow 0.25s;
+      box-shadow:0 4px 20px rgba(200,128,31,0.25), 0 1px 4px rgba(0,0,0,0.4);
     }
-
-    .btn-primary::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .btn-primary:hover {
-      background: #d98f2a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(200, 128, 31, 0.4),
-                  0 2px 8px rgba(0,0,0,0.4);
-    }
-
-    .btn-primary:focus-visible {
-      outline: 2px solid #c8801f;
-      outline-offset: 3px;
-    }
-
-    .btn-primary:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 8px rgba(200, 128, 31, 0.25);
-    }
-
-    .btn-arrow {
-      display: inline-block;
-      transition: transform 0.2s ease;
-    }
-
-    .btn-primary:hover .btn-arrow {
-      transform: translateX(4px);
-    }
-
-    /* ─── FADE-UP ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-up {
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .delay-1 { animation-delay: 0.15s; }
-    .delay-2 { animation-delay: 0.32s; }
-    .delay-3 { animation-delay: 0.50s; }
-    .delay-4 { animation-delay: 0.65s; }
-    .delay-5 { animation-delay: 0.80s; }
-
-    /* Photo fade in */
-    @keyframes photoReveal {
-      from { opacity: 0; transform: scale(1.04); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    .hero-photo-col img {
-      animation: photoReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    /* Subtle horizontal rule */
-    .section-rule {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(74, 82, 64, 0.5), transparent);
-      margin: 0;
-    }
+    .btn-primary::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 60%); pointer-events:none; }
+    .btn-primary:hover { background:#d98f2a; transform:translateY(-2px); box-shadow:0 8px 32px rgba(200,128,31,0.4), 0 2px 8px rgba(0,0,0,0.4); }
+    .btn-primary:focus-visible { outline:2px solid #c8801f; outline-offset:3px; }
+    .btn-primary:active { transform:translateY(0); }
+    .btn-arrow { display:inline-block; transition:transform 0.2s; }
+    .btn-primary:hover .btn-arrow { transform:translateX(4px); }
 
     /* ─── LEFT COLUMN CANVAS ─── */
     .photo-canvas {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 38% 32%, rgba(200,128,31,0.14) 0%, transparent 52%),
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse at 38% 32%, rgba(200,128,31,0.14) 0%, transparent 52%),
         radial-gradient(ellipse at 70% 72%, rgba(138,106,74,0.10) 0%, transparent 48%),
         radial-gradient(ellipse at 15% 80%, rgba(74,82,64,0.10) 0%, transparent 42%),
         linear-gradient(155deg, #21262f 0%, #1a1d24 55%, #1c1a18 100%);
-      z-index: 0;
+      z-index:0;
     }
+    .glow-orb { position:absolute; border-radius:50%; filter:blur(70px); pointer-events:none; }
+    .glow-1 { width:320px; height:320px; background:radial-gradient(circle,rgba(200,128,31,0.18) 0%,transparent 70%); top:15%; left:5%; animation:breathe1 7s ease-in-out infinite; }
+    .glow-2 { width:220px; height:220px; background:radial-gradient(circle,rgba(138,106,74,0.14) 0%,transparent 70%); bottom:22%; right:8%; animation:breathe2 9s ease-in-out infinite; }
+    .glow-3 { width:150px; height:150px; background:radial-gradient(circle,rgba(200,128,31,0.10) 0%,transparent 70%); bottom:8%; left:30%; animation:breathe1 5s ease-in-out 2s infinite; }
+    @keyframes breathe1 { 0%,100% { opacity:.55; transform:scale(1) translate(0,0); } 50% { opacity:1; transform:scale(1.22) translate(12px,-12px); } }
+    @keyframes breathe2 { 0%,100% { opacity:.45; transform:scale(1) translate(0,0); } 50% { opacity:.95; transform:scale(1.3) translate(-10px,10px); } }
+    .geo-overlay, .draw-line-svg { position:absolute; inset:0; width:100%; height:100%; }
+    .animated-path { stroke-dasharray:700; stroke-dashoffset:700; animation:drawPath 2.8s cubic-bezier(0.4,0,0.2,1) 0.8s forwards; }
+    .animated-ring { stroke-dasharray:1200; stroke-dashoffset:1200; animation:drawPath 3.5s cubic-bezier(0.4,0,0.2,1) 0.3s forwards; }
+    @keyframes drawPath { to { stroke-dashoffset:0; } }
+    .photo-coords { position:absolute; bottom:52px; left:44px; z-index:10; animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 1.4s both; }
+    .coords-line { width:28px; height:1px; background:rgba(200,128,31,0.45); margin-bottom:12px; }
+    .coords-text { font-family:'DM Sans',sans-serif; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(200,128,31,0.5); margin-bottom:5px; }
+    .coords-sub { font-family:'DM Sans',sans-serif; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(138,106,74,0.4); }
+    .hero-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; filter:grayscale(18%) contrast(1.06) brightness(0.88); z-index:5; animation:photoReveal 1.2s cubic-bezier(0.16,1,0.3,1) both; }
 
-    .glow-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(70px);
-      pointer-events: none;
-    }
+    /* ─── FADE-UP ANIMATIONS ─── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    .fade-up { opacity:0; animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .delay-1 { animation-delay:0.15s; } .delay-2 { animation-delay:0.32s; }
+    .delay-3 { animation-delay:0.50s; } .delay-4 { animation-delay:0.65s; }
+    .delay-5 { animation-delay:0.80s; }
+    @keyframes photoReveal { from { opacity:0; transform:scale(1.04); } to { opacity:1; transform:scale(1); } }
 
-    .glow-1 {
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(200,128,31,0.18) 0%, transparent 70%);
-      top: 15%;
-      left: 5%;
-      animation: breathe1 7s ease-in-out infinite;
-    }
+    /* ─── REVEAL (scroll) ─── */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.revealed, .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-d1 { transition-delay:0.08s; } .reveal-d2 { transition-delay:0.20s; }
+    .reveal-d3 { transition-delay:0.32s; } .reveal-d4 { transition-delay:0.44s; }
+    .reveal-d5 { transition-delay:0.56s; }
 
-    .glow-2 {
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(138,106,74,0.14) 0%, transparent 70%);
-      bottom: 22%;
-      right: 8%;
-      animation: breathe2 9s ease-in-out infinite;
-    }
+    .section-rule { width:100%; height:1px; background:linear-gradient(to right,transparent,rgba(74,82,64,0.5),transparent); }
 
-    .glow-3 {
-      width: 150px;
-      height: 150px;
-      background: radial-gradient(circle, rgba(200,128,31,0.10) 0%, transparent 70%);
-      bottom: 8%;
-      left: 30%;
-      animation: breathe1 5s ease-in-out 2s infinite;
-    }
+    /* ─── SHARED ─── */
+    .section-eyebrow { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+    .section-eyebrow-line { width:32px; height:1px; background:#c8801f; flex-shrink:0; }
+    .section-eyebrow-text { font-family:'DM Sans',sans-serif; font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:#c8801f; font-weight:400; }
+    .section-heading { font-family:'EB Garamond',serif; font-size:clamp(30px,3.2vw,50px); color:#f4ede0; line-height:1.1; letter-spacing:-0.02em; margin-bottom:56px; }
+    .section-heading em { font-style:italic; color:#c8801f; }
 
-    @keyframes breathe1 {
-      0%, 100% { opacity: 0.55; transform: scale(1) translate(0,0); }
-      50%       { opacity: 1;    transform: scale(1.22) translate(12px,-12px); }
+    /* ─── CREDIBILITY ─── */
+    #credibility {
+      background:#21262f; border-top:1px solid rgba(74,82,64,0.2); border-bottom:1px solid rgba(74,82,64,0.2);
+      padding:64px 52px; display:grid; grid-template-columns:1fr 1px 1fr; gap:0 64px; align-items:center;
     }
+    .cred-book-wrap { display:flex; align-items:center; gap:36px; }
+    .cred-book-img { flex-shrink:0; width:100px; position:relative; }
+    .cred-book-img img { width:100%; height:auto; display:block; box-shadow:-6px 6px 0 rgba(0,0,0,0.35), 0 16px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(200,128,31,0.1); }
+    .cred-book-badge { display:inline-flex; align-items:center; gap:7px; padding:4px 12px; border:1px solid rgba(200,128,31,0.35); font-family:'DM Sans',sans-serif; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#c8801f; font-weight:400; margin-bottom:12px; }
+    .cred-book-title { font-family:'EB Garamond',serif; font-size:20px; color:#f4ede0; line-height:1.2; letter-spacing:-0.01em; margin-bottom:6px; }
+    .cred-book-sub { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:300; color:#8a6a4a; line-height:1.5; margin-bottom:16px; }
+    .cred-book-link { display:inline-flex; align-items:center; gap:7px; font-family:'DM Sans',sans-serif; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#c8801f; text-decoration:none; font-weight:400; transition:gap 0.2s; }
+    .cred-book-link:hover { gap:11px; }
+    .cred-v-divider { width:1px; height:120px; background:linear-gradient(to bottom,transparent,rgba(74,82,64,0.5),transparent); justify-self:center; }
+    .cred-brand-label { font-family:'DM Sans',sans-serif; font-size:9.5px; letter-spacing:0.22em; text-transform:uppercase; color:#c8801f; margin-bottom:6px; font-weight:400; }
+    .cred-brand-name { font-family:'EB Garamond',serif; font-size:28px; color:#f4ede0; letter-spacing:-0.01em; line-height:1; }
+    .cred-platforms { display:flex; gap:32px; align-items:center; }
+    .cred-platform { display:flex; flex-direction:column; gap:4px; }
+    .cred-platform-top { display:flex; align-items:center; gap:9px; }
+    .cred-platform-icon { color:rgba(200,128,31,0.55); display:flex; align-items:center; }
+    .cred-platform-count { font-family:'EB Garamond',serif; font-size:34px; color:#f4ede0; line-height:1; letter-spacing:-0.02em; }
+    .cred-platform-name { font-family:'DM Sans',sans-serif; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:#8a6a4a; font-weight:400; }
+    .cred-platform-link { text-decoration:none; transition:opacity 0.2s; }
+    .cred-platform-link:hover { opacity:.75; }
 
-    @keyframes breathe2 {
-      0%, 100% { opacity: 0.45; transform: scale(1) translate(0,0); }
-      50%       { opacity: 0.95; transform: scale(1.3) translate(-10px,10px); }
-    }
+    /* ─── ORIGIN ─── */
+    #origin { background:#21262f; padding:120px 0; position:relative; overflow:hidden; }
+    #origin::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 85% 40%,rgba(200,128,31,0.06) 0%,transparent 55%), radial-gradient(ellipse at 10% 80%,rgba(74,82,64,0.08) 0%,transparent 45%); pointer-events:none; }
+    .origin-inner { max-width:900px; margin:0 auto; padding:0 52px; }
+    .origin-quote { display:grid; grid-template-columns:3px 1fr; gap:0 52px; align-items:start; }
+    .quote-border-line { width:3px; background:linear-gradient(to bottom,#c8801f,rgba(200,128,31,0.15)); min-height:220px; align-self:stretch; }
+    .quote-marks { font-family:'EB Garamond',serif; font-size:88px; color:rgba(200,128,31,0.22); line-height:0.55; margin-bottom:16px; display:block; }
+    .quote-text { font-family:'EB Garamond',serif; font-size:clamp(20px,2.4vw,30px); font-style:italic; color:#f4ede0; line-height:1.68; letter-spacing:0.01em; margin-bottom:44px; }
+    .quote-attribution { display:flex; align-items:flex-start; gap:18px; }
+    .attribution-dash { width:24px; height:1px; background:#c8801f; margin-top:8px; flex-shrink:0; }
+    .attribution-name { font-family:'DM Sans',sans-serif; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:#8a6a4a; font-weight:400; }
+    .attribution-sub { font-family:'DM Sans',sans-serif; font-size:11px; color:rgba(138,106,74,0.5); font-weight:300; margin-top:3px; letter-spacing:0.06em; }
 
-    .geo-overlay,
-    .draw-line-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
+    /* ─── MISTAKES ─── */
+    #mistakes { background:#1a1d24; padding:120px 0; }
+    .mistakes-inner { max-width:1160px; margin:0 auto; padding:0 52px; }
+    .mistake-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; background:rgba(74,82,64,0.18); }
+    .mistake-card { grid-column:span 2; background:#1e2229; padding:44px 36px 40px; border-top:2px solid transparent; position:relative; transition:border-color 0.3s, background 0.3s, box-shadow 0.3s; }
+    .mistake-card:nth-child(4) { grid-column:2/span 2; }
+    .mistake-card:nth-child(5) { grid-column:4/span 2; }
+    .mistake-card:hover { border-top-color:#c8801f; background:#23292f; box-shadow:0 12px 48px rgba(0,0,0,0.45); }
+    .mistake-num { font-family:'EB Garamond',serif; font-size:12px; letter-spacing:0.22em; color:rgba(200,128,31,0.48); margin-bottom:14px; font-weight:400; }
+    .mistake-title { font-family:'EB Garamond',serif; font-size:21px; color:#f4ede0; line-height:1.25; letter-spacing:-0.01em; margin-bottom:18px; }
+    .mistake-body { font-family:'DM Sans',sans-serif; font-size:14px; font-weight:300; color:#8a6a4a; line-height:1.75; margin-bottom:28px; }
+    .mistake-divider { width:100%; height:1px; background:rgba(74,82,64,0.35); margin-bottom:24px; }
+    .insight-label { display:block; font-family:'DM Sans',sans-serif; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#c8801f; margin-bottom:10px; font-weight:500; }
+    .insight-text { font-family:'DM Sans',sans-serif; font-size:13.5px; font-style:italic; color:rgba(244,237,224,0.72); line-height:1.65; font-weight:300; }
 
-    .animated-path {
-      stroke-dasharray: 700;
-      stroke-dashoffset: 700;
-      animation: drawPath 2.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
-    }
+    /* ─── SERVICES ─── */
+    #services { background:#21262f; padding:120px 0; }
+    .services-inner { max-width:960px; margin:0 auto; padding:0 52px; }
+    .service-item { display:grid; grid-template-columns:68px 1px 1fr 28px; gap:0 32px; align-items:start; padding:40px 0; border-bottom:1px solid rgba(74,82,64,0.28); }
+    .service-item:first-child { border-top:1px solid rgba(74,82,64,0.28); }
+    .service-item:hover .service-num { color:#c8801f; }
+    .service-item:hover .service-vline { background:rgba(200,128,31,0.35); }
+    .service-item:hover .service-arr { color:#c8801f; transform:translateX(5px); }
+    .service-num { font-family:'EB Garamond',serif; font-size:30px; color:rgba(138,106,74,0.45); line-height:1; padding-top:5px; text-align:right; transition:color 0.3s; }
+    .service-vline { width:1px; min-height:56px; background:rgba(74,82,64,0.3); transition:background 0.3s; }
+    .service-title { font-family:'EB Garamond',serif; font-size:clamp(18px,2vw,26px); color:#f4ede0; line-height:1.2; letter-spacing:-0.01em; margin-bottom:10px; }
+    .service-desc { font-family:'DM Sans',sans-serif; font-size:14px; font-weight:300; color:#8a6a4a; line-height:1.7; }
+    .service-arr { font-size:17px; color:rgba(200,128,31,0.28); padding-top:6px; text-align:right; transition:color 0.3s, transform 0.3s; }
 
-    .animated-ring {
-      stroke-dasharray: 1200;
-      stroke-dashoffset: 1200;
-      animation: drawPath 3.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
-    }
+    /* ─── CTA ─── */
+    #cta { padding:140px 0; background:#1a1d24; position:relative; overflow:hidden; text-align:center; }
+    #cta::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% -10%,rgba(200,128,31,0.14) 0%,transparent 58%), radial-gradient(ellipse at 15% 110%,rgba(74,82,64,0.09) 0%,transparent 50%); pointer-events:none; }
+    .cta-inner { position:relative; max-width:720px; margin:0 auto; padding:0 52px; }
+    .cta-eyebrow { font-family:'DM Sans',sans-serif; font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:#c8801f; margin-bottom:28px; }
+    .cta-headline { font-family:'EB Garamond',serif; font-size:clamp(34px,4.2vw,62px); color:#f4ede0; line-height:1.1; letter-spacing:-0.02em; margin-bottom:52px; }
+    .cta-headline em { font-style:italic; color:#c8801f; }
+    .btn-large { padding:18px 48px !important; font-size:13px !important; letter-spacing:0.16em !important; }
+    .lang-badges { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:52px; }
+    .lang-badge { padding:7px 18px; border:1px solid rgba(74,82,64,0.45); font-family:'DM Sans',sans-serif; font-size:11px; letter-spacing:0.1em; color:rgba(138,106,74,0.65); font-weight:300; }
 
-    @keyframes drawPath {
-      to { stroke-dashoffset: 0; }
-    }
-
-    .photo-coords {
-      position: absolute;
-      bottom: 52px;
-      left: 44px;
-      z-index: 10;
-      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 1.4s both;
-    }
-
-    .coords-line {
-      width: 28px;
-      height: 1px;
-      background: rgba(200,128,31,0.45);
-      margin-bottom: 12px;
-    }
-
-    .coords-text {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(200,128,31,0.5);
-      margin-bottom: 5px;
-    }
-
-    .coords-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(138,106,74,0.4);
-    }
-
-    /* Actual photo — sits above canvas, below gradients */
-    .hero-photo {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      filter: grayscale(18%) contrast(1.06) brightness(0.88);
-      z-index: 5;
-      animation: photoReveal 1.2s cubic-bezier(0.16,1,0.3,1) both;
-    }
+    /* ─── FOOTER ─── */
+    footer { background:#181b21; border-top:1px solid rgba(74,82,64,0.22); padding:44px 52px; display:flex; align-items:center; justify-content:space-between; }
+    .footer-logo img { height:34px; width:auto; opacity:.72; }
+    .footer-domain { font-family:'DM Sans',sans-serif; font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(138,106,74,0.4); font-weight:300; }
+    .footer-credit { font-family:'DM Sans',sans-serif; font-size:11px; color:rgba(138,106,74,0.38); font-weight:300; text-align:right; line-height:1.7; }
+    .footer-credit strong { color:rgba(200,128,31,0.48); font-weight:400; }
+    .social-links { display:flex; align-items:center; gap:14px; margin-top:14px; }
+    .social-link { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border:1px solid rgba(74,82,64,0.4); color:rgba(138,106,74,0.55); text-decoration:none; transition:border-color 0.25s, color 0.25s, background 0.25s; }
+    .social-link:hover { border-color:#c8801f; color:#c8801f; background:rgba(200,128,31,0.06); }
+    .social-link svg { display:block; }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
-      .hero-section {
-        grid-template-columns: 1fr;
-        grid-template-rows: 55vh auto;
-      }
-
-      .hero-photo-col {
-        height: 55vh;
-      }
-
-      .hero-photo-col img {
-        height: 100%;
-      }
-
-      .photo-grad-right {
-        background: linear-gradient(
-          to bottom,
-          transparent 55%,
-          rgba(26, 29, 36, 0.85) 90%,
-          rgba(26, 29, 36, 1) 100%
-        );
-      }
-
-      .hero-content-col {
-        padding: 48px 28px 64px;
-      }
-
-      #main-nav {
-        padding: 20px 24px;
-      }
-
-      .stats-row {
-        gap: 0;
-      }
-
-      .stat-num { font-size: 34px; }
-    }
-
-    @media (max-width: 480px) {
-      .hero-headline { font-size: 36px; }
-      .stats-row { flex-wrap: wrap; gap: 24px; }
-      .stat-block + .stat-block {
-        border-left: none;
-        padding-left: 0;
-      }
-    }
-    /* ─── REVEAL (scroll-triggered) ─── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
-                  transform 0.85s cubic-bezier(0.16,1,0.3,1);
-    }
-    .reveal.revealed,
-    .reveal.visible  { opacity: 1; transform: translateY(0); }
-    .reveal-d1 { transition-delay: 0.08s; }
-    .reveal-d2 { transition-delay: 0.20s; }
-    .reveal-d3 { transition-delay: 0.32s; }
-    .reveal-d4 { transition-delay: 0.44s; }
-    .reveal-d5 { transition-delay: 0.56s; }
-
-    /* ─── CREDIBILITY STRIP ─── */
-    #credibility {
-      background: #21262f;
-      border-top: 1px solid rgba(74,82,64,0.2);
-      border-bottom: 1px solid rgba(74,82,64,0.2);
-      padding: 64px 52px;
-      display: grid;
-      grid-template-columns: 1fr 1px 1fr;
-      gap: 0 64px;
-      align-items: center;
-      max-width: 100%;
-    }
-    .cred-book-wrap {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-    }
-    .cred-book-img {
-      flex-shrink: 0;
-      width: 100px;
-      position: relative;
-    }
-    .cred-book-img img {
-      width: 100%;
-      height: auto;
-      display: block;
-      box-shadow:
-        -6px 6px 0 rgba(0,0,0,0.35),
-        0 16px 40px rgba(0,0,0,0.5),
-        0 4px 12px rgba(200,128,31,0.1);
-    }
-    .cred-book-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 4px 12px;
-      border: 1px solid rgba(200,128,31,0.35);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 9px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: #c8801f;
-      font-weight: 400; margin-bottom: 12px;
-    }
-    .cred-book-title {
-      font-family: 'EB Garamond', serif;
-      font-size: 20px; color: #f4ede0;
-      line-height: 1.2; letter-spacing: -0.01em;
-      margin-bottom: 6px;
-    }
-    .cred-book-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px; font-weight: 300;
-      color: #8a6a4a; line-height: 1.5;
-      margin-bottom: 16px;
-    }
-    .cred-book-link {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10.5px; letter-spacing: 0.14em;
-      text-transform: uppercase; color: #c8801f;
-      text-decoration: none; font-weight: 400;
-      transition: gap 0.2s;
-    }
-    .cred-book-link:hover { gap: 11px; }
-    .cred-v-divider {
-      width: 1px; height: 120px;
-      background: linear-gradient(to bottom, transparent, rgba(74,82,64,0.5), transparent);
-      justify-self: center;
-    }
-    .cred-social-wrap {}
-    .cred-brand-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 9.5px; letter-spacing: 0.22em;
-      text-transform: uppercase; color: #c8801f;
-      margin-bottom: 6px; font-weight: 400;
-    }
-    .cred-brand-name {
-      font-family: 'EB Garamond', serif;
-      font-size: 28px; color: #f4ede0;
-      letter-spacing: -0.01em; margin-bottom: 28px;
-      line-height: 1;
-    }
-    .cred-platforms {
-      display: flex; gap: 32px; align-items: center;
-    }
-    .cred-platform {
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .cred-platform-top {
-      display: flex; align-items: center; gap: 9px;
-    }
-    .cred-platform-icon {
-      color: rgba(200,128,31,0.55);
-      display: flex; align-items: center;
-    }
-    .cred-platform-count {
-      font-family: 'EB Garamond', serif;
-      font-size: 34px; color: #f4ede0;
-      line-height: 1; letter-spacing: -0.02em;
-    }
-    .cred-platform-name {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 9px; letter-spacing: 0.18em;
-      text-transform: uppercase; color: #8a6a4a;
-      font-weight: 400;
-    }
-    .cred-platform-link {
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-    .cred-platform-link:hover { opacity: 0.75; }
-    @media (max-width: 900px) {
-      #credibility {
-        grid-template-columns: 1fr;
-        gap: 40px 0;
-        padding: 48px 24px;
-      }
-      .cred-v-divider {
-        width: 80px; height: 1px;
-        background: linear-gradient(to right, transparent, rgba(74,82,64,0.5), transparent);
-      }
-    }
-
-    /* ─── SHARED SECTION ELEMENTS ─── */
-    .section-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-    .section-eyebrow-line {
-      width: 32px; height: 1px;
-      background: #c8801f; flex-shrink: 0;
-    }
-    .section-eyebrow-text {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10.5px; letter-spacing: 0.22em;
-      text-transform: uppercase; color: #c8801f; font-weight: 400;
-    }
-    .section-heading {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(30px, 3.2vw, 50px);
-      color: #f4ede0; line-height: 1.1;
-      letter-spacing: -0.02em; margin-bottom: 56px;
-    }
-    .section-heading em { font-style: italic; color: #c8801f; }
-
-    /* ─── ORIGIN STORY ─── */
-    #origin {
-      background: #21262f;
-      padding: 120px 0;
-      position: relative; overflow: hidden;
-    }
-    #origin::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 85% 40%, rgba(200,128,31,0.06) 0%, transparent 55%),
-        radial-gradient(ellipse at 10% 80%, rgba(74,82,64,0.08) 0%, transparent 45%);
-      pointer-events: none;
-    }
-    .origin-inner {
-      max-width: 900px; margin: 0 auto; padding: 0 52px;
-    }
-    .origin-quote {
-      display: grid;
-      grid-template-columns: 3px 1fr;
-      gap: 0 52px; align-items: start;
-    }
-    .quote-border-line {
-      width: 3px;
-      background: linear-gradient(to bottom, #c8801f, rgba(200,128,31,0.15));
-      min-height: 220px; align-self: stretch;
-    }
-    .quote-marks {
-      font-family: 'EB Garamond', serif;
-      font-size: 88px; color: rgba(200,128,31,0.22);
-      line-height: 0.55; margin-bottom: 16px; display: block;
-    }
-    .quote-text {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(20px, 2.4vw, 30px);
-      font-style: italic; color: #f4ede0;
-      line-height: 1.68; letter-spacing: 0.01em; margin-bottom: 44px;
-    }
-    .quote-attribution {
-      display: flex; align-items: flex-start; gap: 18px;
-    }
-    .attribution-dash {
-      width: 24px; height: 1px; background: #c8801f; margin-top: 8px; flex-shrink: 0;
-    }
-    .attribution-name {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px; letter-spacing: 0.18em;
-      text-transform: uppercase; color: #8a6a4a; font-weight: 400;
-    }
-    .attribution-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px; color: rgba(138,106,74,0.5);
-      font-weight: 300; margin-top: 3px; letter-spacing: 0.06em;
-    }
-
-    /* ─── 5 MISTAKES ─── */
-    #mistakes { background: #1a1d24; padding: 120px 0; }
-    .mistakes-inner {
-      max-width: 1160px; margin: 0 auto; padding: 0 52px;
-    }
-    .mistake-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 2px;
-      background: rgba(74,82,64,0.18);
-    }
-    .mistake-card {
-      grid-column: span 2;
-      background: #1e2229;
-      padding: 44px 36px 40px;
-      border-top: 2px solid transparent;
-      position: relative;
-      transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-    }
-    .mistake-card:nth-child(4) { grid-column: 2 / span 2; }
-    .mistake-card:nth-child(5) { grid-column: 4 / span 2; }
-    .mistake-card:hover {
-      border-top-color: #c8801f;
-      background: #23292f;
-      box-shadow: 0 12px 48px rgba(0,0,0,0.45);
-    }
-    .mistake-num {
-      font-family: 'EB Garamond', serif;
-      font-size: 12px; letter-spacing: 0.22em;
-      color: rgba(200,128,31,0.48); margin-bottom: 14px; font-weight: 400;
-    }
-    .mistake-title {
-      font-family: 'EB Garamond', serif;
-      font-size: 21px; color: #f4ede0;
-      line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 18px;
-    }
-    .mistake-body {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px; font-weight: 300;
-      color: #8a6a4a; line-height: 1.75; margin-bottom: 28px;
-    }
-    .mistake-divider {
-      width: 100%; height: 1px;
-      background: rgba(74,82,64,0.35); margin-bottom: 24px;
-    }
-    .insight-label {
-      display: block;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 9.5px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: #c8801f;
-      margin-bottom: 10px; font-weight: 500;
-    }
-    .insight-text {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13.5px; font-style: italic;
-      color: rgba(244,237,224,0.72); line-height: 1.65; font-weight: 300;
-    }
-
-    /* ─── SERVICES ─── */
-    #services { background: #21262f; padding: 120px 0; }
-    .services-inner {
-      max-width: 960px; margin: 0 auto; padding: 0 52px;
-    }
-    .service-item {
-      display: grid;
-      grid-template-columns: 68px 1px 1fr 28px;
-      gap: 0 32px; align-items: start;
-      padding: 40px 0;
-      border-bottom: 1px solid rgba(74,82,64,0.28);
-    }
-    .service-item:first-child { border-top: 1px solid rgba(74,82,64,0.28); }
-    .service-item:hover .service-num { color: #c8801f; }
-    .service-item:hover .service-vline { background: rgba(200,128,31,0.35); }
-    .service-item:hover .service-arr { color: #c8801f; transform: translateX(5px); }
-    .service-num {
-      font-family: 'EB Garamond', serif;
-      font-size: 30px; color: rgba(138,106,74,0.45);
-      line-height: 1; padding-top: 5px;
-      text-align: right;
-      transition: color 0.3s;
-    }
-    .service-vline {
-      width: 1px; min-height: 56px;
-      background: rgba(74,82,64,0.3);
-      transition: background 0.3s;
-    }
-    .service-title {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(18px, 2vw, 26px);
-      color: #f4ede0; line-height: 1.2;
-      letter-spacing: -0.01em; margin-bottom: 10px;
-    }
-    .service-desc {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px; font-weight: 300;
-      color: #8a6a4a; line-height: 1.7;
-    }
-    .service-arr {
-      font-size: 17px; color: rgba(200,128,31,0.28);
-      padding-top: 6px; text-align: right;
-      transition: color 0.3s, transform 0.3s;
-    }
-
-    /* ─── FINAL CTA ─── */
-    #cta {
-      padding: 140px 0;
-      background: #1a1d24;
-      position: relative; overflow: hidden;
-      text-align: center;
-    }
-    #cta::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 50% -10%, rgba(200,128,31,0.14) 0%, transparent 58%),
-        radial-gradient(ellipse at 15% 110%, rgba(74,82,64,0.09) 0%, transparent 50%),
-        radial-gradient(ellipse at 85% 90%, rgba(138,106,74,0.07) 0%, transparent 45%);
-      pointer-events: none;
-    }
-    .cta-inner {
-      position: relative;
-      max-width: 720px; margin: 0 auto; padding: 0 52px;
-    }
-    .cta-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10.5px; letter-spacing: 0.22em;
-      text-transform: uppercase; color: #c8801f; margin-bottom: 28px;
-    }
-    .cta-headline {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(34px, 4.2vw, 62px);
-      color: #f4ede0; line-height: 1.1;
-      letter-spacing: -0.02em; margin-bottom: 52px;
-    }
-    .cta-headline em { font-style: italic; color: #c8801f; }
-    .btn-large {
-      padding: 18px 48px !important;
-      font-size: 13px !important;
-      letter-spacing: 0.16em !important;
-    }
-    .lang-badges {
-      display: flex; align-items: center;
-      justify-content: center; gap: 10px;
-      flex-wrap: wrap; margin-top: 52px;
-    }
-    .lang-badge {
-      padding: 7px 18px;
-      border: 1px solid rgba(74,82,64,0.45);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px; letter-spacing: 0.1em;
-      color: rgba(138,106,74,0.65); font-weight: 300;
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: #181b21;
-      border-top: 1px solid rgba(74,82,64,0.22);
-      padding: 44px 52px;
-      display: flex; align-items: center;
-      justify-content: space-between;
-    }
-    .footer-logo img {
-      height: 34px; width: auto; opacity: 0.72;
-    }
-    .footer-domain {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10.5px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(138,106,74,0.4);
-      font-weight: 300;
-    }
-    .footer-credit {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px; color: rgba(138,106,74,0.38);
-      font-weight: 300; text-align: right; line-height: 1.7;
-    }
-    .footer-credit strong { color: rgba(200,128,31,0.48); font-weight: 400; }
-    .social-links {
-      display: flex; align-items: center; gap: 14px;
-      margin-top: 14px;
-    }
-    .social-link {
-      display: flex; align-items: center; justify-content: center;
-      width: 34px; height: 34px;
-      border: 1px solid rgba(74,82,64,0.4);
-      color: rgba(138,106,74,0.55);
-      text-decoration: none;
-      transition: border-color 0.25s, color 0.25s, background 0.25s;
-    }
-    .social-link:hover {
-      border-color: #c8801f;
-      color: #c8801f;
-      background: rgba(200,128,31,0.06);
-    }
-    .social-link:focus-visible { outline: 2px solid #c8801f; outline-offset: 2px; }
-    .social-link svg { display: block; }
-
-    /* ─── RESPONSIVE: SECTIONS ─── */
-    @media (max-width: 900px) {
-      .origin-inner, .mistakes-inner, .services-inner, .cta-inner { padding: 0 24px; }
-      #origin, #mistakes, #services, #cta { padding: 72px 0; }
-      .origin-quote { gap: 0 28px; }
-      .mistake-grid { grid-template-columns: 1fr; }
-      .mistake-card,
-      .mistake-card:nth-child(4),
-      .mistake-card:nth-child(5) { grid-column: span 1; }
-      .service-item { grid-template-columns: 48px 1px 1fr; }
-      .service-arr { display: none; }
-      footer { flex-direction: column; gap: 20px; text-align: center; padding: 36px 24px; }
-      .footer-credit { text-align: center; }
+      .hero-section { grid-template-columns:1fr; grid-template-rows:55vh auto; }
+      .hero-photo-col { height:55vh; }
+      .photo-grad-right { background:linear-gradient(to bottom,transparent 55%,rgba(26,29,36,0.85) 90%,rgba(26,29,36,1) 100%); }
+      .hero-content-col { padding:48px 28px 64px; }
+      #main-nav { padding:20px 24px; }
+      .stat-num { font-size:34px; }
+      #credibility { grid-template-columns:1fr; gap:40px 0; padding:48px 24px; }
+      .cred-v-divider { width:80px; height:1px; background:linear-gradient(to right,transparent,rgba(74,82,64,0.5),transparent); }
+      .origin-inner, .mistakes-inner, .services-inner, .cta-inner { padding:0 24px; }
+      #origin, #mistakes, #services, #cta { padding:72px 0; }
+      .origin-quote { gap:0 28px; }
+      .mistake-grid { grid-template-columns:1fr; }
+      .mistake-card, .mistake-card:nth-child(4), .mistake-card:nth-child(5) { grid-column:span 1; }
+      .service-item { grid-template-columns:48px 1px 1fr; }
+      .service-arr { display:none; }
+      footer { flex-direction:column; gap:20px; text-align:center; padding:36px 24px; }
+      .footer-credit { text-align:center; }
     }
     @media (max-width: 480px) {
-      .origin-quote { grid-template-columns: 1fr; gap: 24px 0; }
-      .quote-border-line { display: none; }
+      .hero-headline { font-size:36px; }
+      .stats-row { flex-wrap:wrap; gap:24px; }
+      .stat-block + .stat-block { border-left:none; padding-left:0; }
+      .origin-quote { grid-template-columns:1fr; gap:24px 0; }
+      .quote-border-line { display:none; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- ═══════════════════════════════════════
-     NAV
-════════════════════════════════════════ -->
+<!-- NAV -->
 <nav id="main-nav">
   <a href="#" style="display:flex;align-items:center;text-decoration:none;">
     <img src="images/Marco Logo.png" alt="Marco Sager" style="height:44px;width:auto;display:block;opacity:0.95;">
@@ -1010,211 +310,148 @@
     </div>
   </a>
 
-  <a href="https://links.dreamkeymedia.net/widget/booking/cT5Ov7xLDEGIO4Z9eosy"
-     target="_blank"
-     rel="noopener"
-     class="nav-cta">
-    Gespräch buchen <span style="font-size:14px;line-height:1;">→</span>
-  </a>
+  <div class="nav-right">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-btn active" data-lang="de" onclick="setLang('de')">DE</button>
+      <div class="lang-sep"></div>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="https://links.dreamkeymedia.net/widget/booking/cT5Ov7xLDEGIO4Z9eosy"
+       target="_blank" rel="noopener" class="nav-cta" id="nav-cta-btn">
+      <span data-i18n="nav-cta">Gespräch buchen</span> <span style="font-size:14px;line-height:1;">→</span>
+    </a>
+  </div>
 </nav>
 
 
-<!-- ═══════════════════════════════════════
-     HERO
-════════════════════════════════════════ -->
+<!-- HERO -->
 <section class="hero-section">
-
-  <!-- Photo -->
   <div class="hero-photo-col">
-
-    <!-- Animated decorative canvas (always visible) -->
     <div class="photo-canvas">
       <div class="glow-orb glow-1"></div>
       <div class="glow-orb glow-2"></div>
       <div class="glow-orb glow-3"></div>
-
-      <!-- Geometric SVG grid -->
       <svg class="geo-overlay" viewBox="0 0 500 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <!-- Outer ring -->
-        <circle class="animated-ring" cx="250" cy="380" r="210"
-          stroke="rgba(200,128,31,0.10)" stroke-width="1"/>
-        <!-- Inner dashed ring -->
-        <circle cx="250" cy="380" r="155"
-          stroke="rgba(138,106,74,0.07)" stroke-width="0.6"
-          stroke-dasharray="4 8"/>
-        <!-- Centre dot -->
+        <circle class="animated-ring" cx="250" cy="380" r="210" stroke="rgba(200,128,31,0.10)" stroke-width="1"/>
+        <circle cx="250" cy="380" r="155" stroke="rgba(138,106,74,0.07)" stroke-width="0.6" stroke-dasharray="4 8"/>
         <circle cx="250" cy="380" r="3.5" fill="rgba(200,128,31,0.35)"/>
-        <!-- Cross hairs -->
-        <line x1="250" y1="130" x2="250" y2="630"
-          stroke="rgba(200,128,31,0.07)" stroke-width="0.6"/>
-        <line x1="30"  y1="380" x2="470" y2="380"
-          stroke="rgba(200,128,31,0.07)" stroke-width="0.6"/>
-        <!-- Corner brackets -->
-        <path d="M36 48 L36 80 M36 48 L68 48"  stroke="rgba(200,128,31,0.28)" stroke-width="1"/>
+        <line x1="250" y1="130" x2="250" y2="630" stroke="rgba(200,128,31,0.07)" stroke-width="0.6"/>
+        <line x1="30" y1="380" x2="470" y2="380" stroke="rgba(200,128,31,0.07)" stroke-width="0.6"/>
+        <path d="M36 48 L36 80 M36 48 L68 48" stroke="rgba(200,128,31,0.28)" stroke-width="1"/>
         <path d="M464 48 L464 80 M464 48 L432 48" stroke="rgba(200,128,31,0.28)" stroke-width="1"/>
-        <path d="M36 752 L36 720 M36 752 L68 752"  stroke="rgba(200,128,31,0.28)" stroke-width="1"/>
+        <path d="M36 752 L36 720 M36 752 L68 752" stroke="rgba(200,128,31,0.28)" stroke-width="1"/>
         <path d="M464 752 L464 720 M464 752 L432 752" stroke="rgba(200,128,31,0.28)" stroke-width="1"/>
-        <!-- Diagonal accent -->
-        <line x1="0" y1="0" x2="500" y2="800"
-          stroke="rgba(74,82,64,0.05)" stroke-width="0.5"/>
+        <line x1="0" y1="0" x2="500" y2="800" stroke="rgba(74,82,64,0.05)" stroke-width="0.5"/>
       </svg>
-
-      <!-- Animated curved draw-in path -->
-      <svg class="draw-line-svg" viewBox="0 0 500 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <path class="animated-path"
-          d="M 200 60 Q 380 160 420 350 Q 400 540 260 720"
-          stroke="#c8801f" stroke-width="1" opacity="0.20"/>
+      <svg class="draw-line-svg" viewBox="0 0 500 800" fill="none" preserveAspectRatio="xMidYMid slice">
+        <path class="animated-path" d="M 200 60 Q 380 160 420 350 Q 400 540 260 720" stroke="#c8801f" stroke-width="1" opacity="0.20"/>
       </svg>
-
-      <!-- Bangkok coordinates -->
       <div class="photo-coords">
         <div class="coords-line"></div>
         <div class="coords-text">13°45′N · 100°31′E</div>
         <div class="coords-sub">Bangkok · Thailand</div>
       </div>
     </div>
-
-    <!-- Actual photo sits on top when file exists -->
-    <img
-      src="images/marco-sager-photo.jpg"
-      alt="Marco Sager"
-      class="hero-photo"
-      onerror="this.style.opacity='0';this.style.pointerEvents='none'"
-    >
+    <img src="images/marco-sager-photo.jpg" alt="Marco Sager" class="hero-photo" onerror="this.style.opacity='0';this.style.pointerEvents='none'">
     <div class="photo-grad-bottom"></div>
     <div class="photo-grad-right"></div>
     <div class="photo-color-wash"></div>
   </div>
 
-  <!-- Content -->
   <div class="hero-content-col">
-
     <div class="eyebrow fade-up delay-1">
       <div class="eyebrow-line"></div>
-      <span class="eyebrow-text">Bangkok · Thailand · Seit 1983</span>
+      <span class="eyebrow-text" data-i18n="hero-eyebrow">Bangkok · Thailand · Seit 1983</span>
     </div>
-
-    <h1 class="hero-headline fade-up delay-2">
-      Thailand.<br>
-      <em>Ohne die<br>kostspieligen Fehler.</em>
+    <h1 class="hero-headline fade-up delay-2" data-i18n="hero-headline">
+      Thailand.<br><em>Ohne die<br>kostspieligen Fehler.</em>
     </h1>
-
-    <p class="hero-subline fade-up delay-3">
-      42 Jahre in Thailand. 30 Jahre im Business. Ich schütze
-      deutschsprachige Investoren vor den Fehlern, die ich selbst erlebt habe.
+    <p class="hero-subline fade-up delay-3" data-i18n="hero-subline">
+      42 Jahre in Thailand. 30 Jahre im Business. Ich schütze deutschsprachige Investoren vor den Fehlern, die ich selbst erlebt habe.
     </p>
-
     <div class="stats-row fade-up delay-4">
       <div class="stat-block">
         <div class="stat-num">42</div>
-        <div class="stat-label">Jahre Thailand</div>
+        <div class="stat-label" data-i18n="stat-1">Jahre Thailand</div>
       </div>
       <div class="stat-block">
         <div class="stat-num">30</div>
-        <div class="stat-label">Jahre Business</div>
+        <div class="stat-label" data-i18n="stat-2">Jahre Business</div>
       </div>
       <div class="stat-block">
         <div class="stat-num">200K</div>
-        <div class="stat-label">Thai-Follower</div>
+        <div class="stat-label" data-i18n="stat-3">Thai-Follower</div>
       </div>
     </div>
-
     <div class="fade-up delay-5">
-      <a href="https://links.dreamkeymedia.net/widget/booking/cT5Ov7xLDEGIO4Z9eosy"
-         target="_blank"
-         rel="noopener"
-         class="btn-primary">
-        Gespräch buchen <span class="btn-arrow">→</span>
+      <a href="https://links.dreamkeymedia.net/widget/booking/cT5Ov7xLDEGIO4Z9eosy" target="_blank" rel="noopener" class="btn-primary">
+        <span data-i18n="hero-cta">Gespräch buchen</span> <span class="btn-arrow">→</span>
       </a>
     </div>
-
   </div>
-</section>
-
-<!-- ═══════════════════════════════════════
-     CREDIBILITY STRIP
-════════════════════════════════════════ -->
-<section id="credibility" class="reveal">
-
-  <!-- Book -->
-  <div class="cred-book-wrap">
-    <div class="cred-book-img">
-      <img src="images/book-cover.png" alt="The Psychology of Marketing"
-           onerror="this.parentElement.style.display='none'">
-    </div>
-    <div>
-      <div class="cred-book-badge">Publizierter Autor</div>
-      <div class="cred-book-title">The Psychology<br>of Marketing</div>
-      <div class="cred-book-sub">Why People Buy (And How To Use It)</div>
-      <a href="#" class="cred-book-link">Buch ansehen →</a>
-    </div>
-  </div>
-
-  <!-- Divider -->
-  <div class="cred-v-divider"></div>
-
-  <!-- Thai by Heart -->
-  <div class="cred-social-wrap">
-    <div class="cred-brand-label">Thai-Marke · Reichweite</div>
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;">
-      <img src="images/thai-by-heart-logo.png" alt="Thai by Heart"
-           style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(200,128,31,0.3);">
-      <div class="cred-brand-name" style="margin-bottom:0;">Thai by Heart</div>
-    </div>
-    <div class="cred-platforms">
-
-      <a href="https://web.facebook.com/thaibyheart/" target="_blank" rel="noopener" class="cred-platform-link">
-        <div class="cred-platform">
-          <div class="cred-platform-top">
-            <div class="cred-platform-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-              </svg>
-            </div>
-            <div class="cred-platform-count">154K</div>
-          </div>
-          <div class="cred-platform-name">Facebook</div>
-        </div>
-      </a>
-
-      <a href="https://www.tiktok.com/@thaibyheart" target="_blank" rel="noopener" class="cred-platform-link">
-        <div class="cred-platform">
-          <div class="cred-platform-top">
-            <div class="cred-platform-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
-              </svg>
-            </div>
-            <div class="cred-platform-count">53K</div>
-          </div>
-          <div class="cred-platform-name">TikTok</div>
-        </div>
-      </a>
-
-    </div>
-  </div>
-
 </section>
 
 <div class="section-rule"></div>
 
 
-<!-- ═══════════════════════════════════════
-     ORIGIN STORY
-════════════════════════════════════════ -->
+<!-- CREDIBILITY -->
+<section id="credibility" class="reveal">
+  <div class="cred-book-wrap">
+    <div class="cred-book-img">
+      <img src="images/book-cover.png" alt="The Psychology of Marketing" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div>
+      <div class="cred-book-badge" data-i18n="cred-book-badge">Publizierter Autor</div>
+      <div class="cred-book-title">The Psychology<br>of Marketing</div>
+      <div class="cred-book-sub">Why People Buy (And How To Use It)</div>
+      <a href="#" class="cred-book-link" data-i18n="cred-book-link">Buch ansehen →</a>
+    </div>
+  </div>
+  <div class="cred-v-divider"></div>
+  <div class="cred-social-wrap">
+    <div class="cred-brand-label" data-i18n="cred-social-label">Thai-Marke · Reichweite</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;">
+      <img src="images/thai-by-heart-logo.png" alt="Thai by Heart" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(200,128,31,0.3);">
+      <div class="cred-brand-name">Thai by Heart</div>
+    </div>
+    <div class="cred-platforms">
+      <a href="https://web.facebook.com/thaibyheart/" target="_blank" rel="noopener" class="cred-platform-link">
+        <div class="cred-platform">
+          <div class="cred-platform-top">
+            <div class="cred-platform-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+            <div class="cred-platform-count">154K</div>
+          </div>
+          <div class="cred-platform-name">Facebook</div>
+        </div>
+      </a>
+      <a href="https://www.tiktok.com/@thaibyheart" target="_blank" rel="noopener" class="cred-platform-link">
+        <div class="cred-platform">
+          <div class="cred-platform-top">
+            <div class="cred-platform-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></div>
+            <div class="cred-platform-count">53K</div>
+          </div>
+          <div class="cred-platform-name">TikTok</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-rule"></div>
+
+
+<!-- ORIGIN STORY -->
 <section id="origin">
   <div class="origin-inner">
-
     <div class="section-eyebrow reveal">
       <div class="section-eyebrow-line"></div>
-      <span class="section-eyebrow-text">Woher ich komme</span>
+      <span class="section-eyebrow-text" data-i18n="origin-eyebrow">Woher ich komme</span>
     </div>
-
     <blockquote class="origin-quote reveal">
       <div class="quote-border-line"></div>
       <div>
         <span class="quote-marks">"</span>
-        <p class="quote-text">
+        <p class="quote-text" data-i18n="origin-quote">
           Ich war 10 Jahre alt, als ich zusah, wie mein Vater sein Geschäft in Phuket verlor.
           Er hatte einen unterschriebenen 10-Jahres-Vertrag. Der Vermieter nahm es nach 5 Jahren
           trotzdem zurück. Dieser Moment hat alles geprägt. Ich verbrachte die nächsten 42 Jahre
@@ -1224,109 +461,97 @@
           <div class="attribution-dash"></div>
           <div>
             <div class="attribution-name">Marco Sager</div>
-            <div class="attribution-sub">Bangkok · Thailand · Seit 1983</div>
+            <div class="attribution-sub" data-i18n="origin-sub">Bangkok · Thailand · Seit 1983</div>
           </div>
         </div>
       </div>
     </blockquote>
-
   </div>
 </section>
-
 
 <div class="section-rule"></div>
 
 
-<!-- ═══════════════════════════════════════
-     5 MISTAKES
-════════════════════════════════════════ -->
+<!-- 5 MISTAKES -->
 <section id="mistakes">
   <div class="mistakes-inner">
-
     <div class="section-eyebrow reveal">
       <div class="section-eyebrow-line"></div>
-      <span class="section-eyebrow-text">Die 5 Fehler</span>
+      <span class="section-eyebrow-text" data-i18n="mistakes-eyebrow">Die 5 Fehler</span>
     </div>
-    <h2 class="section-heading reveal">
-      Die kostspieligen Fehler,<br>
-      <em>die ich selbst erlebt habe.</em>
+    <h2 class="section-heading reveal" data-i18n="mistakes-heading">
+      Die kostspieligen Fehler,<br><em>die ich selbst erlebt habe.</em>
     </h2>
-
     <div class="mistake-grid">
 
       <div class="mistake-card reveal reveal-d1">
-        <div class="mistake-num">FEHLER 01</div>
-        <h3 class="mistake-title">Der Vertrag, der nichts bedeutete</h3>
-        <p class="mistake-body">Ein unterschriebener 10-Jahres-Vertrag in Phuket. Der Vermieter nahm das Geschäft nach 5 Jahren trotzdem zurück. Ein Vertrag in Thailand ist nur so stark wie die dahinterstehende Rechtsstruktur und Beziehung. Ohne das richtige Setup ist er nur Papier.</p>
+        <div class="mistake-num" data-i18n="m1-num">FEHLER 01</div>
+        <h3 class="mistake-title" data-i18n="m1-title">Der Vertrag, der nichts bedeutete</h3>
+        <p class="mistake-body" data-i18n="m1-body">Ein unterschriebener 10-Jahres-Vertrag in Phuket. Der Vermieter nahm das Geschäft nach 5 Jahren trotzdem zurück. Ein Vertrag in Thailand ist nur so stark wie die dahinterstehende Rechtsstruktur und Beziehung. Ohne das richtige Setup ist er nur Papier.</p>
         <div class="mistake-divider"></div>
-        <span class="insight-label">Marcos Einschätzung</span>
-        <p class="insight-text">Es gibt spezifische Rechtsstrukturen, die Vereinbarungen in Thailand bindend machen. Ich prüfe alles, bevor meine Mandanten irgendetwas unterschreiben.</p>
+        <span class="insight-label" data-i18n="insight-label">Marcos Einschätzung</span>
+        <p class="insight-text" data-i18n="m1-insight">Es gibt spezifische Rechtsstrukturen, die Vereinbarungen in Thailand bindend machen. Ich prüfe alles, bevor meine Mandanten irgendetwas unterschreiben.</p>
       </div>
 
       <div class="mistake-card reveal reveal-d2">
-        <div class="mistake-num">FEHLER 02</div>
-        <h3 class="mistake-title">Der Treuhänder, der langsam übernahm</h3>
-        <p class="mistake-body">Ein deutscher Unternehmer fand einen gut vernetzten lokalen Partner, der das Firmenkonto eröffnete, "um die Dinge zu vereinfachen." Sechs Monate später stellte er fest, dass er nicht besaß, was er zu besitzen glaubte. Die Struktur gab dem Thai-Partner von Anfang an die volle Kontrolle.</p>
+        <div class="mistake-num" data-i18n="m2-num">FEHLER 02</div>
+        <h3 class="mistake-title" data-i18n="m2-title">Der Treuhänder, der langsam übernahm</h3>
+        <p class="mistake-body" data-i18n="m2-body">Ein deutscher Unternehmer fand einen gut vernetzten lokalen Partner, der das Firmenkonto eröffnete, um die Dinge zu vereinfachen. Sechs Monate später stellte er fest, dass er nicht besaß, was er zu besitzen glaubte. Die Struktur gab dem Thai-Partner von Anfang an die volle Kontrolle.</p>
         <div class="mistake-divider"></div>
-        <span class="insight-label">Marcos Einschätzung</span>
-        <p class="insight-text">Diese Struktur wird häufiger verwendet als man denkt. Sie sieht auf dem Papier völlig legitim aus. Ich weiß genau, wonach man vor der Unterzeichnung suchen muss.</p>
+        <span class="insight-label" data-i18n="insight-label">Marcos Einschätzung</span>
+        <p class="insight-text" data-i18n="m2-insight">Diese Struktur wird häufiger verwendet als man denkt. Sie sieht auf dem Papier völlig legitim aus. Ich weiß genau, wonach man vor der Unterzeichnung suchen muss.</p>
       </div>
 
       <div class="mistake-card reveal reveal-d3">
-        <div class="mistake-num">FEHLER 03</div>
-        <h3 class="mistake-title">Die Honeymoon-Bestellung</h3>
-        <p class="mistake-body">Ein österreichischer Geschäftsmann fand einen Lieferanten 30&nbsp;% unter Marktpreis. Erste Bestellung: perfekt. Dritte Bestellung: falsche Materialien, verpasste Fristen, Lieferant nach Teilzahlung nicht mehr erreichbar. Die Schadensbehebung kostete mehr als die Produktion in Europa.</p>
+        <div class="mistake-num" data-i18n="m3-num">FEHLER 03</div>
+        <h3 class="mistake-title" data-i18n="m3-title">Die Honeymoon-Bestellung</h3>
+        <p class="mistake-body" data-i18n="m3-body">Ein österreichischer Geschäftsmann fand einen Lieferanten 30&nbsp;% unter Marktpreis. Erste Bestellung: perfekt. Dritte Bestellung: falsche Materialien, verpasste Fristen, Lieferant nach Teilzahlung nicht mehr erreichbar. Die Schadensbehebung kostete mehr als die Produktion in Europa.</p>
         <div class="mistake-divider"></div>
-        <span class="insight-label">Marcos Einschätzung</span>
-        <p class="insight-text">In Thailand ist die erste Bestellung fast immer perfekt — sie ist ein Beziehungsaufbau. Ich nenne es die Honeymoon-Bestellung. Dieses Muster zu kennen, verändert die Art, wie Sie jeden Lieferantenvertrag strukturieren.</p>
+        <span class="insight-label" data-i18n="insight-label">Marcos Einschätzung</span>
+        <p class="insight-text" data-i18n="m3-insight">In Thailand ist die erste Bestellung fast immer perfekt — sie ist ein Beziehungsaufbau. Ich nenne es die Honeymoon-Bestellung. Dieses Muster zu kennen, verändert die Art, wie Sie jeden Lieferantenvertrag strukturieren.</p>
       </div>
 
       <div class="mistake-card reveal reveal-d4">
-        <div class="mistake-num">FEHLER 04</div>
-        <h3 class="mistake-title">Das gleiche Lächeln, eine andere Bedeutung</h3>
-        <p class="mistake-body">Ein ausländischer Restaurantbesitzer hörte jeden Tag "ja, okay" und "kein Problem." Aufgaben wurden missverstanden, Fehler wiederholten sich, niemand sagte "das wird nicht funktionieren." Er dachte, sein Team sei unzuverlässig. Das eigentliche Problem war kulturell.</p>
+        <div class="mistake-num" data-i18n="m4-num">FEHLER 04</div>
+        <h3 class="mistake-title" data-i18n="m4-title">Das gleiche Lächeln, eine andere Bedeutung</h3>
+        <p class="mistake-body" data-i18n="m4-body">Ein ausländischer Restaurantbesitzer hörte jeden Tag "ja, okay" und "kein Problem." Aufgaben wurden missverstanden, Fehler wiederholten sich, niemand sagte "das wird nicht funktionieren." Er dachte, sein Team sei unzuverlässig. Das eigentliche Problem war kulturell.</p>
         <div class="mistake-divider"></div>
-        <span class="insight-label">Marcos Einschätzung</span>
-        <p class="insight-text">Geschäfte in Thailand sind nicht nur Strategie. Es ist Kultur, Kommunikation und das Wissen darum, was nicht gesagt wird. Ich überbrücke beide Seiten, damit nichts verloren geht.</p>
+        <span class="insight-label" data-i18n="insight-label">Marcos Einschätzung</span>
+        <p class="insight-text" data-i18n="m4-insight">Geschäfte in Thailand sind nicht nur Strategie. Es ist Kultur, Kommunikation und das Wissen darum, was nicht gesagt wird. Ich überbrücke beide Seiten, damit nichts verloren geht.</p>
       </div>
 
       <div class="mistake-card reveal reveal-d5">
-        <div class="mistake-num">FEHLER 05</div>
-        <h3 class="mistake-title">Das Visa-Problem, das Sie "später lösen"</h3>
-        <p class="mistake-body">Ein Schweizer Berater verdiente gutes Geld auf einem Touristenvisum. "Das Papierkram-Thema löse ich später." Eine Einwanderungskontrolle. Geldstrafe, Arbeitsverbot, Kunden über Nacht verloren. In Thailand ist die Rechtsstruktur nichts, was man später regelt.</p>
+        <div class="mistake-num" data-i18n="m5-num">FEHLER 05</div>
+        <h3 class="mistake-title" data-i18n="m5-title">Das Visa-Problem, das Sie "später lösen"</h3>
+        <p class="mistake-body" data-i18n="m5-body">Ein Schweizer Berater verdiente gutes Geld auf einem Touristenvisum. "Das Papierkram-Thema löse ich später." Eine Einwanderungskontrolle. Geldstrafe, Arbeitsverbot, Kunden über Nacht verloren. In Thailand ist die Rechtsstruktur nichts, was man später regelt.</p>
         <div class="mistake-divider"></div>
-        <span class="insight-label">Marcos Einschätzung</span>
-        <p class="insight-text">Die richtige Visa- und Arbeitserlaubnisstruktur kostet einen Bruchteil dessen, was ein Problem im Nachhinein kostet. Ich helfe Mandanten, dies vor dem Start richtig einzurichten.</p>
+        <span class="insight-label" data-i18n="insight-label">Marcos Einschätzung</span>
+        <p class="insight-text" data-i18n="m5-insight">Die richtige Visa- und Arbeitserlaubnisstruktur kostet einen Bruchteil dessen, was ein Problem im Nachhinein kostet. Ich helfe Mandanten, dies vor dem Start richtig einzurichten.</p>
       </div>
 
     </div>
   </div>
 </section>
 
-
 <div class="section-rule"></div>
 
 
-<!-- ═══════════════════════════════════════
-     SERVICES
-════════════════════════════════════════ -->
+<!-- SERVICES -->
 <section id="services">
   <div class="services-inner">
-
     <div class="section-eyebrow reveal">
       <div class="section-eyebrow-line"></div>
-      <span class="section-eyebrow-text">Was ich tue</span>
+      <span class="section-eyebrow-text" data-i18n="services-eyebrow">Was ich tue</span>
     </div>
-    <h2 class="section-heading reveal">Leistungen</h2>
-
+    <h2 class="section-heading reveal" data-i18n="services-heading">Leistungen</h2>
     <div class="services-list">
 
       <div class="service-item reveal reveal-d1">
         <div class="service-num">01</div>
         <div class="service-vline"></div>
         <div>
-          <h3 class="service-title">Markteintritt & Unternehmensstruktur</h3>
-          <p class="service-desc">Rechtliche Strukturen, die Sie wirklich schützen. Keine Überraschungen nach der Unterzeichnung.</p>
+          <h3 class="service-title" data-i18n="s1-title">Markteintritt & Unternehmensstruktur</h3>
+          <p class="service-desc" data-i18n="s1-desc">Rechtliche Strukturen, die Sie wirklich schützen. Keine Überraschungen nach der Unterzeichnung.</p>
         </div>
         <div class="service-arr">→</div>
       </div>
@@ -1335,8 +560,8 @@
         <div class="service-num">02</div>
         <div class="service-vline"></div>
         <div>
-          <h3 class="service-title">Partner-Prüfung & Verhandlungen</h3>
-          <p class="service-desc">Ich überprüfe potenzielle Partner und sitze mit Ihnen am Tisch, damit nichts verloren geht.</p>
+          <h3 class="service-title" data-i18n="s2-title">Partner-Prüfung & Verhandlungen</h3>
+          <p class="service-desc" data-i18n="s2-desc">Ich überprüfe potenzielle Partner und sitze mit Ihnen am Tisch, damit nichts verloren geht.</p>
         </div>
         <div class="service-arr">→</div>
       </div>
@@ -1345,8 +570,8 @@
         <div class="service-num">03</div>
         <div class="service-vline"></div>
         <div>
-          <h3 class="service-title">Genehmigungen & Behördennavigation</h3>
-          <p class="service-desc">Durch die bürokratische Komplexität — ohne in die Fallen zu tappen, in die Ausländer immer wieder geraten.</p>
+          <h3 class="service-title" data-i18n="s3-title">Genehmigungen & Behördennavigation</h3>
+          <p class="service-desc" data-i18n="s3-desc">Durch die bürokratische Komplexität — ohne in die Fallen zu tappen, in die Ausländer immer wieder geraten.</p>
         </div>
         <div class="service-arr">→</div>
       </div>
@@ -1355,8 +580,8 @@
         <div class="service-num">04</div>
         <div class="service-vline"></div>
         <div>
-          <h3 class="service-title">Laufende Beratung</h3>
-          <p class="service-desc">Ihre lokalen Augen und Ohren in Bangkok. Monatliches Retainer für Unternehmen, die bereits in Thailand tätig sind.</p>
+          <h3 class="service-title" data-i18n="s4-title">Laufende Beratung</h3>
+          <p class="service-desc" data-i18n="s4-desc">Ihre lokalen Augen und Ohren in Bangkok. Monatliches Retainer für Unternehmen, die bereits in Thailand tätig sind.</p>
         </div>
         <div class="service-arr">→</div>
       </div>
@@ -1365,72 +590,51 @@
   </div>
 </section>
 
-
 <div class="section-rule"></div>
 
 
-<!-- ═══════════════════════════════════════
-     FINAL CTA
-════════════════════════════════════════ -->
+<!-- FINAL CTA -->
 <section id="cta">
   <div class="cta-inner">
-
-    <p class="cta-eyebrow reveal">Direkter Kontakt</p>
-
-    <h2 class="cta-headline reveal">
-      Sprechen Sie mit mir,<br>
-      <em>bevor Sie unterschreiben.</em>
+    <p class="cta-eyebrow reveal" data-i18n="cta-eyebrow">Direkter Kontakt</p>
+    <h2 class="cta-headline reveal" data-i18n="cta-headline">
+      Sprechen Sie mit mir,<br><em>bevor Sie unterschreiben.</em>
     </h2>
-
     <div class="reveal">
       <a href="https://links.dreamkeymedia.net/widget/booking/cT5Ov7xLDEGIO4Z9eosy"
-         target="_blank" rel="noopener"
-         class="btn-primary btn-large"
-         style="display:inline-flex;">
-        Gespräch buchen <span class="btn-arrow">→</span>
+         target="_blank" rel="noopener" class="btn-primary btn-large" style="display:inline-flex;">
+        <span data-i18n="cta-btn">Gespräch buchen</span> <span class="btn-arrow">→</span>
       </a>
     </div>
-
     <div class="lang-badges reveal">
       <span class="lang-badge">Deutsch</span>
       <span class="lang-badge">ภาษาไทย</span>
       <span class="lang-badge">English</span>
       <span class="lang-badge">Bangkok</span>
     </div>
-
   </div>
 </section>
 
 
-<!-- ═══════════════════════════════════════
-     FOOTER
-════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer>
   <div>
     <div class="footer-logo">
       <img src="images/Marco Logo.png" alt="Marco Sager Consulting">
     </div>
-    <!-- UPDATE HREFS with real profile URLs -->
     <div class="social-links">
       <a href="https://web.facebook.com/MarcoSager" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-        </svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
       </a>
       <a href="https://www.instagram.com/marcosager.thaibyheart" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
           <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="0" fill="currentColor" stroke="none"/>
           <rect x="16.5" y="5.5" width="2" height="2" rx="1" fill="currentColor" stroke="none"/>
         </svg>
       </a>
       <a href="https://www.linkedin.com/in/marcosager/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-          <rect x="2" y="9" width="4" height="12"/>
-          <circle cx="4" cy="4" r="2"/>
-        </svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
     </div>
   </div>
@@ -1442,11 +646,132 @@
 </footer>
 
 
-<!-- ═══════════════════════════════════════
-     JS
-════════════════════════════════════════ -->
 <script>
-  // Nav scroll blur
+  // ─── TRANSLATIONS ───
+  const T = {
+    de: {
+      'nav-cta':          'Gespräch buchen',
+      'hero-eyebrow':     'Bangkok · Thailand · Seit 1983',
+      'hero-headline':    'Thailand.<br><em>Ohne die<br>kostspieligen Fehler.</em>',
+      'hero-subline':     '42 Jahre in Thailand. 30 Jahre im Business. Ich schütze deutschsprachige Investoren vor den Fehlern, die ich selbst erlebt habe.',
+      'stat-1':           'Jahre Thailand',
+      'stat-2':           'Jahre Business',
+      'stat-3':           'Thai-Follower',
+      'hero-cta':         'Gespräch buchen',
+      'cred-book-badge':  'Publizierter Autor',
+      'cred-book-link':   'Buch ansehen →',
+      'cred-social-label':'Thai-Marke · Reichweite',
+      'origin-eyebrow':   'Woher ich komme',
+      'origin-quote':     'Ich war 10 Jahre alt, als ich zusah, wie mein Vater sein Geschäft in Phuket verlor. Er hatte einen unterschriebenen 10-Jahres-Vertrag. Der Vermieter nahm es nach 5 Jahren trotzdem zurück. Dieser Moment hat alles geprägt. Ich verbrachte die nächsten 42 Jahre damit zu lernen, wie Thailand wirklich funktioniert — nicht aus Büchern, sondern von innen.',
+      'origin-sub':       'Bangkok · Thailand · Seit 1983',
+      'mistakes-eyebrow': 'Die 5 Fehler',
+      'mistakes-heading': 'Die kostspieligen Fehler,<br><em>die ich selbst erlebt habe.</em>',
+      'm1-num': 'FEHLER 01', 'm2-num': 'FEHLER 02', 'm3-num': 'FEHLER 03', 'm4-num': 'FEHLER 04', 'm5-num': 'FEHLER 05',
+      'm1-title': 'Der Vertrag, der nichts bedeutete',
+      'm2-title': 'Der Treuhänder, der langsam übernahm',
+      'm3-title': 'Die Honeymoon-Bestellung',
+      'm4-title': 'Das gleiche Lächeln, eine andere Bedeutung',
+      'm5-title': 'Das Visa-Problem, das Sie "später lösen"',
+      'm1-body': 'Ein unterschriebener 10-Jahres-Vertrag in Phuket. Der Vermieter nahm das Geschäft nach 5 Jahren trotzdem zurück. Ein Vertrag in Thailand ist nur so stark wie die dahinterstehende Rechtsstruktur und Beziehung. Ohne das richtige Setup ist er nur Papier.',
+      'm2-body': 'Ein deutscher Unternehmer fand einen gut vernetzten lokalen Partner, der das Firmenkonto eröffnete, um die Dinge zu vereinfachen. Sechs Monate später stellte er fest, dass er nicht besaß, was er zu besitzen glaubte. Die Struktur gab dem Thai-Partner von Anfang an die volle Kontrolle.',
+      'm3-body': 'Ein österreichischer Geschäftsmann fand einen Lieferanten 30&nbsp;% unter Marktpreis. Erste Bestellung: perfekt. Dritte Bestellung: falsche Materialien, verpasste Fristen, Lieferant nach Teilzahlung nicht mehr erreichbar. Die Schadensbehebung kostete mehr als die Produktion in Europa.',
+      'm4-body': 'Ein ausländischer Restaurantbesitzer hörte jeden Tag "ja, okay" und "kein Problem." Aufgaben wurden missverstanden, Fehler wiederholten sich, niemand sagte "das wird nicht funktionieren." Er dachte, sein Team sei unzuverlässig. Das eigentliche Problem war kulturell.',
+      'm5-body': 'Ein Schweizer Berater verdiente gutes Geld auf einem Touristenvisum. "Das Papierkram-Thema löse ich später." Eine Einwanderungskontrolle. Geldstrafe, Arbeitsverbot, Kunden über Nacht verloren. In Thailand ist die Rechtsstruktur nichts, was man später regelt.',
+      'insight-label': 'Marcos Einschätzung',
+      'm1-insight': 'Es gibt spezifische Rechtsstrukturen, die Vereinbarungen in Thailand bindend machen. Ich prüfe alles, bevor meine Mandanten irgendetwas unterschreiben.',
+      'm2-insight': 'Diese Struktur wird häufiger verwendet als man denkt. Sie sieht auf dem Papier völlig legitim aus. Ich weiß genau, wonach man vor der Unterzeichnung suchen muss.',
+      'm3-insight': 'In Thailand ist die erste Bestellung fast immer perfekt — sie ist ein Beziehungsaufbau. Ich nenne es die Honeymoon-Bestellung. Dieses Muster zu kennen, verändert die Art, wie Sie jeden Lieferantenvertrag strukturieren.',
+      'm4-insight': 'Geschäfte in Thailand sind nicht nur Strategie. Es ist Kultur, Kommunikation und das Wissen darum, was nicht gesagt wird. Ich überbrücke beide Seiten, damit nichts verloren geht.',
+      'm5-insight': 'Die richtige Visa- und Arbeitserlaubnisstruktur kostet einen Bruchteil dessen, was ein Problem im Nachhinein kostet. Ich helfe Mandanten, dies vor dem Start richtig einzurichten.',
+      'services-eyebrow': 'Was ich tue',
+      'services-heading': 'Leistungen',
+      's1-title': 'Markteintritt & Unternehmensstruktur',
+      's2-title': 'Partner-Prüfung & Verhandlungen',
+      's3-title': 'Genehmigungen & Behördennavigation',
+      's4-title': 'Laufende Beratung',
+      's1-desc': 'Rechtliche Strukturen, die Sie wirklich schützen. Keine Überraschungen nach der Unterzeichnung.',
+      's2-desc': 'Ich überprüfe potenzielle Partner und sitze mit Ihnen am Tisch, damit nichts verloren geht.',
+      's3-desc': 'Durch die bürokratische Komplexität — ohne in die Fallen zu tappen, in die Ausländer immer wieder geraten.',
+      's4-desc': 'Ihre lokalen Augen und Ohren in Bangkok. Monatliches Retainer für Unternehmen, die bereits in Thailand tätig sind.',
+      'cta-eyebrow':  'Direkter Kontakt',
+      'cta-headline': 'Sprechen Sie mit mir,<br><em>bevor Sie unterschreiben.</em>',
+      'cta-btn':      'Gespräch buchen',
+    },
+    en: {
+      'nav-cta':          'Book a call',
+      'hero-eyebrow':     'Bangkok · Thailand · Since 1983',
+      'hero-headline':    'Thailand.<br><em>Without the<br>costly mistakes.</em>',
+      'hero-subline':     '42 years in Thailand. 30 years in business. I protect German-speaking investors from the mistakes I experienced myself.',
+      'stat-1':           'Years Thailand',
+      'stat-2':           'Years Business',
+      'stat-3':           'Thai Followers',
+      'hero-cta':         'Book a call',
+      'cred-book-badge':  'Published Author',
+      'cred-book-link':   'View book →',
+      'cred-social-label':'Thai Brand · Reach',
+      'origin-eyebrow':   'Where I come from',
+      'origin-quote':     'I was 10 years old when I watched my father lose his business in Phuket. He had a signed 10-year contract. The landlord took it back after 5 years anyway. That moment shaped everything. I spent the next 42 years learning how Thailand really works — not from books, but from the inside.',
+      'origin-sub':       'Bangkok · Thailand · Since 1983',
+      'mistakes-eyebrow': 'The 5 Mistakes',
+      'mistakes-heading': 'The costly mistakes<br><em>I experienced myself.</em>',
+      'm1-num': 'MISTAKE 01', 'm2-num': 'MISTAKE 02', 'm3-num': 'MISTAKE 03', 'm4-num': 'MISTAKE 04', 'm5-num': 'MISTAKE 05',
+      'm1-title': 'The contract that meant nothing',
+      'm2-title': 'The trusted partner who slowly took over',
+      'm3-title': 'The Honeymoon Order',
+      'm4-title': 'Same smile, different meaning',
+      'm5-title': 'The visa problem you\'ll fix later',
+      'm1-body': 'A signed 10-year lease in Phuket. The landlord took the business back after 5 years anyway. A contract in Thailand is only as strong as the legal structure and relationship behind it. Without the right setup, it is just paper.',
+      'm2-body': 'A German entrepreneur found a well-connected local partner who opened the company bank account to make things easier. Six months later he discovered he didn\'t actually own what he thought he owned. The structure gave the Thai partner full control from day one.',
+      'm3-body': 'An Austrian businessman found a supplier 30% below market. First order: perfect. Third order: wrong materials, missed deadlines, supplier unreachable after partial payment. Fixing the damage cost more than producing in Europe.',
+      'm4-body': 'A foreign restaurant owner heard "yes, okay" and "no problem" every day. Tasks were misunderstood, mistakes repeated, nobody said "this won\'t work." He thought his team was unreliable. The real issue was cultural — in Thailand, direct "no" is avoided.',
+      'm5-body': 'A Swiss consultant was earning good money on a tourist visa. "I\'ll fix the paperwork later." One immigration check. Fine, forced to stop working, lost clients overnight. In Thailand, legal structure is not something you fix later.',
+      'insight-label': 'Marco\'s Insight',
+      'm1-insight': 'There are specific legal structures that make agreements stick in Thailand. I review everything before my clients sign anything.',
+      'm2-insight': 'This structure is used more often than you think. It looks completely legitimate on paper. I know exactly what to look for before you sign.',
+      'm3-insight': 'In Thailand the first order is almost always perfect — it\'s a relationship builder. I call it the Honeymoon Order. Knowing this pattern changes how you structure every supplier agreement.',
+      'm4-insight': 'Business in Thailand is not just strategy. It\'s culture, communication, and knowing what isn\'t being said. I bridge both sides so nothing gets lost.',
+      'm5-insight': 'The right visa and work permit structure costs a fraction of what it costs to fix after a problem. I help clients get this right before they start.',
+      'services-eyebrow': 'What I do',
+      'services-heading': 'Services',
+      's1-title': 'Market Entry & Company Structure',
+      's2-title': 'Partner Vetting & Negotiations',
+      's3-title': 'Regulatory Navigation & Permits',
+      's4-title': 'Ongoing Advisory',
+      's1-desc': 'Legal structures that actually protect you. No surprises after signing.',
+      's2-desc': 'I vet potential partners and sit with you at the table so nothing gets lost.',
+      's3-desc': 'Through the bureaucratic complexity without the traps foreigners keep falling into.',
+      's4-desc': 'Your local eyes and ears in Bangkok. Monthly retainer for businesses already operating in Thailand.',
+      'cta-eyebrow':  'Direct Contact',
+      'cta-headline': 'Talk to me,<br><em>before you sign.</em>',
+      'cta-btn':      'Book a call',
+    }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'de';
+
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.documentElement.lang = lang;
+
+    // Update all data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[lang][key] !== undefined) {
+        el.innerHTML = T[lang][key];
+      }
+    });
+
+    // Toggle active state on buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  }
+
+  // Apply saved language on load
+  if (currentLang === 'en') setLang('en');
+
+  // ─── NAV SCROLL ───
   const nav = document.getElementById('main-nav');
   let ticking = false;
   window.addEventListener('scroll', () => {
@@ -1459,14 +784,11 @@
     }
   }, { passive: true });
 
-  // Scroll-triggered reveal
+  // ─── SCROLL REVEAL ───
   const revealEls = document.querySelectorAll('.reveal');
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('revealed');
-        revealObs.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('revealed'); revealObs.unobserve(e.target); }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   revealEls.forEach(el => revealObs.observe(el));
